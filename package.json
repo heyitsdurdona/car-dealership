@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.4",
+    "tailwindcss": "^4.1.4"
+  },
+  "name": "exam",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./css/input.css -o ./css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
