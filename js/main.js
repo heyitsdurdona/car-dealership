@@ -16,7 +16,9 @@ function getRandomImage() {
         'porsche1.jpg',
         'porsche2.jpg',
         'toyota1.jpg',
-        'toyota2.jpg',        
+        'toyota2.jpg',
+        'bugatti1.jpg',
+        'bugatti2.jpg',        
     ];
     const randomIndex = Math.floor(Math.random() * images.length);
     return `./images/${images[randomIndex]}`;
@@ -106,13 +108,16 @@ renderCars();
 
 elAddButton.addEventListener('click', function(evt){
     window.location.replace("/pages/addCard.html");
+    localStorage.setItem("addElement", Date.now());
 });
 
+// Delete car
 elList.addEventListener("click", function(evt){
     if(evt.target.tagName === "BUTTON"){
         const id = evt.target.id;
         deleteProduct(id).then((res)=>{
             showToast("success", "Car deleted successfully");
+            localStorage.setItem("carSync", Date.now());
             evt.target.parentElement.parentElement.remove();
             renderCars();
         })
@@ -120,5 +125,29 @@ elList.addEventListener("click", function(evt){
             showToast("danger", err.message);
         })
     }
-})
+});
+
+
+
+// sync data between tabs
+window.addEventListener("storage", function (event) {
+    if (event.key === "carSync") {
+        showToast("success", "Car deleted successfully");
+        renderCars();
+        localStorage.removeItem("carSync");
+    }
+
+    if(event.key === "addElement"){
+        window.location.replace("/pages/addCard.html");
+        localStorage.removeItem("addElement");
+    }
+
+    if(event.key === "mainPage"){
+        window.location.replace("/index.html");
+        setTimeout(() => {
+            localStorage.removeItem("mainPage");
+        }, 100);
+    }
+});
+
 
