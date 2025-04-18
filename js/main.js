@@ -1,9 +1,12 @@
 import "./protector.js"
 import { addProducts, getProducts } from "./request.js";
+import { showToast } from "./utils.js";
 
 
 const elAddButton = document.getElementById('addButton');
 const elList = document.getElementById("list");
+console.log(elAddButton);
+console.log(elList)
 
 // Function to get random image
 function getRandomImage() {
@@ -83,7 +86,7 @@ function showSkeletonLoaders(count) {
 }
 
 // Function to render all cars
-async function renderCars() {
+export async function renderCars() {
     // Show skeleton loaders first
     showSkeletonLoaders(12);
     
@@ -105,21 +108,23 @@ async function renderCars() {
 renderCars();
 
 elAddButton.addEventListener('click', function(evt){
-    const title = prompt("Ma'lumot kiriting: ", "olma");
+    window.location.replace("/pages/addCard.html");
     
-    if (title) {
-        const sendData = {title};
+    // if (title) {
+    //     const sendData = {title};
 
-        addProducts(sendData)
-            .then((res)=>{
-                console.log("Success:", res);
-                renderCars();
-            })
-            .catch((err)=>{
-                console.error("Error:", err);
-            })
-            .finally(()=>{
-                console.log("Operation completed");
-            });
-    }
+    //     addProducts(sendData)
+    //         .then((res)=>{
+    //             console.log("Success:", res);
+    //             renderCars();
+    //         })
+    //         .catch((err)=>{
+    //             console.error("Error:", err);
+    //         })
+    //         .finally(()=>{
+    //             console.log("Operation completed");
+    //         });
+    // }
 })
+
+

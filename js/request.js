@@ -19,7 +19,7 @@ export async function login(user) {
 }
 
 export async function addProducts(obj){
-    const token = JSON.parse(localStorage.getItem(user))?.access_token
+    const token = JSON.parse(localStorage.getItem("user"))?.access_token
     const req = await fetch("https://json-api.uz/api/project/fn37/cars", {
         method: "POST",
         headers: {
