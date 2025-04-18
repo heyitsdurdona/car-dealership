@@ -1,0 +1,2 @@
+import "./protector.js"
+
