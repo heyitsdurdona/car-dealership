@@ -2,7 +2,7 @@ import "./protector.js"
 import { login } from "./request.js";
 import { validator } from "./utils.js";
 
-function showToast(type, message) {
+export function showToast(type, message) {
     const toast = document.getElementById(`toast-${type}`);
     const msgContainer = toast.querySelector(".toast-message");
     msgContainer.textContent = message;
