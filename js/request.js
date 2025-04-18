@@ -38,6 +38,25 @@ export async function addProducts(obj){
     }
 
 }
+export async function deleteProduct (id){
+    const token = JSON.parse(localStorage.getItem("user"))?.access_token
+    const req = await fetch(`https://json-api.uz/api/project/fn37/cars/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    });
+
+    const res = await req.text();
+
+    if(req.status === 200){
+        return res;
+    }else{
+        throw new Error("Xatolik bo'ldi");
+    }
+
+}
 
 
 export async function getProducts(){

@@ -1,12 +1,10 @@
 import "./protector.js"
-import { addProducts, getProducts } from "./request.js";
+import { addProducts, getProducts, deleteProduct } from "./request.js";
 import { showToast } from "./utils.js";
 
 
 const elAddButton = document.getElementById('addButton');
 const elList = document.getElementById("list");
-console.log(elAddButton);
-console.log(elList)
 
 // Function to get random image
 function getRandomImage() {
@@ -48,6 +46,7 @@ function createSkeletonLoader() {
 
 // Function to create a card element
 function createCardElement(car) {
+    console.log(car.id);
     const li = document.createElement('li');
     li.className = 'w-full';
     
@@ -60,14 +59,12 @@ function createCardElement(car) {
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${car.name}</h5>
                 </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">${car.description}</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-4">${car.description}</p>
                 <div class="flex justify-between items-center">
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">$${car.price.toLocaleString()}</span>
-                    <div class="flex justify-end">
-                        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-200 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                        <button id=${car.id} class="flex justify-end items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-200 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
                             Delete
-                        </a>
-                    </div>
+                        </button>
                 </div>
             </div>
         </div>
@@ -109,22 +106,19 @@ renderCars();
 
 elAddButton.addEventListener('click', function(evt){
     window.location.replace("/pages/addCard.html");
-    
-    // if (title) {
-    //     const sendData = {title};
+});
 
-    //     addProducts(sendData)
-    //         .then((res)=>{
-    //             console.log("Success:", res);
-    //             renderCars();
-    //         })
-    //         .catch((err)=>{
-    //             console.error("Error:", err);
-    //         })
-    //         .finally(()=>{
-    //             console.log("Operation completed");
-    //         });
-    // }
+elList.addEventListener("click", function(evt){
+    if(evt.target.tagName === "BUTTON"){
+        const id = evt.target.id;
+        deleteProduct(id).then((res)=>{
+            showToast("success", "Car deleted successfully");
+            evt.target.parentElement.parentElement.remove();
+            renderCars();
+        })
+        .catch((err)=>{
+            showToast("danger", err.message);
+        })
+    }
 })
-
 

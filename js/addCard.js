@@ -3,6 +3,11 @@ import { addProducts } from "./request.js";
 import { cardInputValidator, showToast } from "./utils.js";
 
 const elAddCarForm = document.getElementById("addCarForm");
+const elCancelBtn = document.getElementById("cancelBtn");
+
+elCancelBtn.addEventListener("click", function(evt){
+    window.location.replace("/index.html");
+})
 
 
 elAddCarForm.addEventListener("submit", function(evt){
